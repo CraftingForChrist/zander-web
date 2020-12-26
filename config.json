@@ -38,6 +38,8 @@
   "linkedin": true,
   "tiktok": true,
 
+  "tgmstatistics": false,
+
   "rulesmd": "https://raw.githubusercontent.com/crafting-for-christ/Legal/master/rules.md",
   "termsmd": "https://raw.githubusercontent.com/crafting-for-christ/Legal/master/terms.md",
   "privacymd": "https://raw.githubusercontent.com/crafting-for-christ/Legal/master/privacy.md",

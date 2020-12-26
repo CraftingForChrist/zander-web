@@ -12,80 +12,85 @@
   <% if (profileeditmode == true) { %>
   <form action="/profile/<%= playerresults.username %>/edit" method="POST">    
   <% } %>
-  <div class="jumbotron jumbotron-image-header my-4 home-jumbo-header" style="height:340px; padding:25px;">
+  <div class="jumbotron jumbotron-image-header my-4 home-jumbo-header" style="height:240px; padding:45px;">
     <div class="container text-white">
-      <img src="https://crafatar.com/avatars/<%= playerresults.uuid %>?overlay" height="150px" alt="<%= playerresults.username %>'s Player Head" draggable="false">
-      <h3 class="display-4"><%= playerresults.username %></h3>
+      <div style="margin:0 auto; width:90%;">
+        <div style="float:left; width:15%;">
+          <img src="https://crafatar.com/avatars/<%= playerresults.uuid %>?overlay" height="120px" alt="<%= playerresults.username %>'s Player Head" draggable="false">
+        </div>
+        <div style="float:left; width:50%;">
+          <h3 class="display-4"><%= playerresults.username %></h3>
+          <% playerrankresults.forEach(function (data) { %>
+            <tr style="font-size:20pt">
+              <% if (data.permission.includes('group.administrator')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.administrator %>">Administrator</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.seniorstaff')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.seniorstaff %>">Senior Staff</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.developer')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.developer %>">Developer</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.juniordeveloper')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.juniordeveloper %>">Junior Developer</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.staff')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.staff %>">Staff</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.juniorstaff')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.juniorstaff %>">Junior Staff</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.builder')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.builder %>">Builder</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.eventstaff')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.eventstaff %>">Event Staff</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.socialmedia')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.socialmedia %>">Social Media</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.contentcreator')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.contentcreator %>">Content Creator</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.retired')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.retired %>">Retired</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.iron')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.iron %>">Iron</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.gold')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.gold %>">Gold</span></th>
+              <% } %>
+   
+              <% if (data.permission.includes('group.diamond')) { %>
+                <th><span class="badge badge-secondary" style="background-color:<%= HexColour.diamond %>">Diamond</span></th>
+              <% } %>
+            </tr>
+          <% }); %>
+   
+         <% if (bedrockuser == true) { %>
+           <p><span class="badge badge-secondary">Bedrock</span></p>
+         <% } %>
 
-       <% playerrankresults.forEach(function (data) { %>
-         <tr style="font-size:20pt">
-           <% if (data.permission.includes('group.administrator')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.administrator %>">Administrator</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.seniorstaff')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.seniorstaff %>">Senior Staff</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.developer')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.developer %>">Developer</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.juniordeveloper')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.juniordeveloper %>">Junior Developer</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.staff')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.staff %>">Staff</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.juniorstaff')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.juniorstaff %>">Junior Staff</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.builder')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.builder %>">Builder</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.eventstaff')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.eventstaff %>">Event Staff</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.socialmedia')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.socialmedia %>">Social Media</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.contentcreator')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.contentcreator %>">Content Creator</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.retired')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.retired %>">Retired</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.iron')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.iron %>">Iron</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.gold')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.gold %>">Gold</span></th>
-           <% } %>
-
-           <% if (data.permission.includes('group.diamond')) { %>
-             <th><span class="badge badge-secondary" style="background-color:<%= HexColour.diamond %>">Diamond</span></th>
-           <% } %>
-         </tr>
-       <% }); %>
-
-      <% if (playerresults.status == 'Online') { %>
-        <p class="lead"><i class="fas fa-circle" style="color:green;"></i>  Currently Online on <%= currentserver %></p>
-      <% } else { %>
-        <p class="lead"><i class="fas fa-circle" style="color:red; height:40px;"></i>  Last Online on <%= currentserver %></p>
-      <% } %>
-
-      <% if (bedrockuser == true) { %>
-        <p><span class="badge badge-secondary">Bedrock</span></p>
-      <% } %>
+          <% if (playerresults.status == 'Online') { %>
+            <p class="lead"><i class="fas fa-circle" style="color:green;"></i>  Currently Online on <%= currentserver %></p>
+          <% } else { %>
+            <p class="lead"><i class="fas fa-circle" style="color:red; height:40px;"></i>  Last Online on <%= currentserver %></p>
+          <% } %>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -123,45 +128,51 @@
           Statistics Tab
         -->
         <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-          <% if (tgmresbool == true) { %>
-            <div class="card card-home">
-              <table class="table table-borderless">
-                <tr>
-                  <td>Kills</td>
-                  <td>Deaths</td>
-                  <td>Wins</td>
-                  <td>Losses</td>
-                </tr>
-
-                <tr>
-                  <td class="profilenumber"><%= tgmres.user.kills %></td>
-                  <td class="profilenumber"><%= tgmres.user.deaths %></td>
-                  <td class="profilenumber"><%= tgmres.user.wins %></td>
-                  <td class="profilenumber"><%= tgmres.user.losses %></td>
-                </tr>
-
-                <tr>
-                  <td>Matches Played</td>
-                  <td>Wools Destroyed</td>
-                  <td>Level</td>
-                  <td>W/L</td>
-                  <td>K/D</td>
-                </tr>
-
-                <tr>
-                  <td class="profilenumber"><%= tgmres.user.matches %></td>
-                  <td class="profilenumber"><%= tgmres.user.wool_destroys %></td>
-                  <td class="profilenumber"><%= tgmres.user.level %></td>
-                  <td class="profilenumber"><%= winlossratio %></td>
-                  <td class="profilenumber"><%= killdeathratio %></td>
-                </tr>
-              </table>
-            </div>
+          <% if (tgmstatistics == true) { %>
+            <% if (tgmresbool == true) { %>
+              <div class="card card-home">
+                <table class="table table-borderless">
+                  <tr>
+                    <td>Kills</td>
+                    <td>Deaths</td>
+                    <td>Wins</td>
+                    <td>Losses</td>
+                  </tr>
+  
+                  <tr>
+                    <td class="profilenumber"><%= tgmres.user.kills %></td>
+                    <td class="profilenumber"><%= tgmres.user.deaths %></td>
+                    <td class="profilenumber"><%= tgmres.user.wins %></td>
+                    <td class="profilenumber"><%= tgmres.user.losses %></td>
+                  </tr>
+  
+                  <tr>
+                    <td>Matches Played</td>
+                    <td>Wools Destroyed</td>
+                    <td>Level</td>
+                    <td>W/L</td>
+                    <td>K/D</td>
+                  </tr>
+  
+                  <tr>
+                    <td class="profilenumber"><%= tgmres.user.matches %></td>
+                    <td class="profilenumber"><%= tgmres.user.wool_destroys %></td>
+                    <td class="profilenumber"><%= tgmres.user.level %></td>
+                    <td class="profilenumber"><%= winlossratio %></td>
+                    <td class="profilenumber"><%= killdeathratio %></td>
+                  </tr>
+                </table>
+              </div>
+            <% } else { %>
+              <div class="alert alert-warning" role="alert">
+                <%= playerresults.username %> has not played on Mixed, can't display their statistics.
+              </div>
+            <% } %>
           <% } else { %>
-            <div class="alert alert-warning" role="alert">
-              <%= playerresults.username %> has not played on Mixed, can't display their statistics.
+            <div class="alert alert-danger" role="alert">
+              Mixed statistics have been disabled.
             </div>
-          <% } %>
+          <% }  %>
         </div>
 
         <!--
@@ -238,17 +249,13 @@
           <h4 class="card-title">Information</h4>
             <p>Joined: <%= initjoindate %></p>
 
-          <div class="alert alert-primary" role="alert">
-            <b>Coming Soon <i class="fas fa-trademark"></i></b><br>Allow people to stay in contact with you by sharing your Social handles.
-          </div>
-
           <!--
             Interests
           -->
           <% if (playerprofileresults.interests || profileeditmode == true) { %>
             <h4 class="card-title">Interests</h4>
             <% if (profileeditmode == true) { %>
-              <textarea name="interest" cols="40" rows="5"><%= playerprofileresults.interests %></textarea>
+              <textarea name="interests" cols="40" rows="5"><%= playerprofileresults.interests %></textarea>
             <% } else { %>
               <p><%= playerprofileresults.interests %></p>
             <% } %>
@@ -259,15 +266,22 @@
             Social Media Handles Sidebar Aspect
             Currently static but will be dynamic later.
           -->
+          <style>
+            .socialmediatable td, th {
+              border: none;
+              padding-left: 5px;
+            }
+          </style>
+
           <h4 class="card-title">Social Media</h4>
-            <table class="table table-borderless">
+            <table class="socialmediatable">
               <% if (playerprofileresults.twitter || profileeditmode == true) { %>
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-twitter"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="sm-twitter" value="<%= playerprofileresults.twitter %>"></th>
+                    <th><input type="text" name="twitter" value="<%= playerprofileresults.twitter %>"></th>
                   <% } else { %>
-                    <th><a href=""><%= playerprofileresults.twitter %></a></th>
+                    <th><a href="https://twitter.com/<%= playerprofileresults.twitter %>"><%= playerprofileresults.twitter %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -276,9 +290,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-twitch"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="sm-twitch" value="<%= playerprofileresults.twitch %>"></th>
+                    <th><input type="text" name="twitch" value="<%= playerprofileresults.twitch %>"></th>
                   <% } else { %>
-                    <th><a href=""><%= playerprofileresults.twitch %></a></th>
+                    <th><a href="http://twitch.tv/<%= playerprofileresults.twitch %>"><%= playerprofileresults.twitch %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -287,9 +301,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-youtube"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="sm-youtube" value="<%= playerprofileresults.youtube %>"></th>
+                    <th><input type="text" name="youtube" value="<%= playerprofileresults.youtube %>"></th>
                   <% } else { %>
-                    <th><a href=""><%= playerprofileresults.youtube%></a></th>
+                    <th><a href="https://www.youtube.com/channel/<%= playerprofileresults.youtube %>"><%= playerprofileresults.youtube %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -298,9 +312,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-instagram"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="sm-instagram" value="<%= playerprofileresults.instagram %>"></th>
+                    <th><input type="text" name="instagram" value="<%= playerprofileresults.instagram %>"></th>
                   <% } else { %>
-                    <th><a href=""><%= playerprofileresults.instagram %></a></th>
+                    <th><a href="https://www.instagram.com/<%= playerprofileresults.instagram %>"><%= playerprofileresults.instagram %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -309,9 +323,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-steam-symbol"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="sm-steam" value="<%= playerprofileresults.steam %>"></th>
+                    <th><input type="text" name="steam" value="<%= playerprofileresults.steam %>"></th>
                   <% } else { %>
-                    <th><a href=""><%= playerprofileresults.steam %></a></th>
+                    <th><a href="https://steamcommunity.com/id/<%= playerprofileresults.steam %>"><%= playerprofileresults.steam %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -320,9 +334,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-github"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="sm-github" value="<%= playerprofileresults.github %>"></th>
+                    <th><input type="text" name="github" value="<%= playerprofileresults.github %>"></th>
                   <% } else { %>
-                    <th><a href=""><%= playerprofileresults.github %></a></th>
+                    <th><a href="https://github.com/<%= playerprofileresults.github %>"><%= playerprofileresults.github %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -331,9 +345,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-snapchat-ghost"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="sm-snapchat" value="<%= playerprofileresults.snapchat %>"></th>
+                    <th><input type="text" name="snapchat" value="<%= playerprofileresults.snapchat %>"></th>
                   <% } else { %>
-                    <th><a href=""><%= playerprofileresults.snapchat%></a></th>
+                    <th><%= playerprofileresults.snapchat%></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -342,9 +356,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-discord"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="sm-discord" value="<%= playerprofileresults.discord %>"></th>
+                    <th><input type="text" name="discord" value="<%= playerprofileresults.discord %>"></th>
                   <% } else { %>
-                    <th><a href=""><%= playerprofileresults.discord %></a></th>
+                    <th><%= playerprofileresults.discord %></th>
                   <% } %>
                 </tr>
               <% } %>

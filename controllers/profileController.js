@@ -24,7 +24,7 @@ module.exports.profile_get = (req, res) => {
     const playerprofileresults = zanderplayerresults[1][0];
 
     console.log("======================");
-    console.log(playerprofileresults.twitter);
+    console.log(playerprofileresults);
     console.log("======================");
 
     // If there is no player of that username, send them the Player Not Found screen.
@@ -39,17 +39,28 @@ module.exports.profile_get = (req, res) => {
       } else {
         bedrockuser = false;
       };
+    };
+
+    if (config.tgmstatistics == true) {
+      // Get the players Mixed TGM statistics to display.
+      let response = await fetch(`${process.env.tgmapiurl}/mc/player/${playerresults.username}?simple=true`);
+      let tgmbodyres = await response.json();
+
+      const killdeathratio = tgmbodyres.user.kills !== 0 && tgmbodyres.user.deaths !== 0 ? (tgmbodyres.user.kills / tgmbodyres.user.deaths).toFixed(2) : 'None';
+      const winlossratio = (tgmbodyres.user.wins / tgmbodyres.user.losses).toFixed(2);
+
+      if (tgmbodyres.user.xp <= '0') {
+        tgmresbool = false;
+      } else {
+        tgmresbool = true;
+      };      
+    } else {
+      tgmbodyres = null;
+      tgmresbool = null;
+      killdeathratio = null;
+      winlossratio = null;
     }
 
-    // Get the players Mixed TGM statistics to display.
-    let response = await fetch(`${process.env.tgmapiurl}/mc/player/${playerresults.username}?simple=true`);
-    let tgmbodyres = await response.json();
-
-    if (tgmbodyres.user.xp <= '0') {
-      tgmresbool = false;
-    } else {
-      tgmresbool = true;
-    };
 
     if (zanderplayerresults[0].username == req.session.username) {
       isProfileUser = true;
@@ -59,8 +70,6 @@ module.exports.profile_get = (req, res) => {
 
     profileeditmode = false;
 
-    const killdeathratio = tgmbodyres.user.kills !== 0 && tgmbodyres.user.deaths !== 0 ? (tgmbodyres.user.kills / tgmbodyres.user.deaths).toFixed(2) : 'None';
-    const winlossratio = (tgmbodyres.user.wins / tgmbodyres.user.losses).toFixed(2);
 
     // Formatting the initial join date and putting it into template.
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -116,7 +125,8 @@ module.exports.profile_get = (req, res) => {
                 currentserver: capitalizeFirstLetter(playerresults.server),
                 initjoindate: initjoindate,
                 killdeathratio: killdeathratio,
-                winlossratio: winlossratio
+                winlossratio: winlossratio,
+                tgmstatistics: config.tgmstatistics
               });
             }
           });
@@ -150,7 +160,7 @@ module.exports.profileedit_get = (req, res) => {
       const playerprofileresults = zanderplayerresults[1][0];
   
       console.log("======================");
-      console.log(playerprofileresults.twitter);
+      console.log(playerprofileresults);
       console.log("======================");
   
       // If there is no player of that username, send them the Player Not Found screen.
@@ -168,14 +178,23 @@ module.exports.profileedit_get = (req, res) => {
       }
   
       // Get the players Mixed TGM statistics to display.
-      let response = await fetch(`${process.env.tgmapiurl}/mc/player/${playerresults.username}?simple=true`);
-      let tgmbodyres = await response.json();
-  
-      if (tgmbodyres.user.xp <= '0') {
-        tgmresbool = false;
+      if (config.tgmstatistics == true) {
+        let response = await fetch(`${process.env.tgmapiurl}/mc/player/${playerresults.username}?simple=true`);
+        let tgmbodyres = await response.json();
+
+        const killdeathratio = tgmbodyres.user.kills !== 0 && tgmbodyres.user.deaths !== 0 ? (tgmbodyres.user.kills / tgmbodyres.user.deaths).toFixed(2) : 'None';
+        const winlossratio = (tgmbodyres.user.wins / tgmbodyres.user.losses).toFixed(2); 
+    
+        if (tgmbodyres.user.xp <= '0') {
+          tgmresbool = false;
+        } else {
+          tgmresbool = true;
+        };
       } else {
-        tgmresbool = true;
-      };
+        tgmresbool = false;
+      }
+
+     
   
       if (playerresults.username == req.session.username) {
         isProfileUser = true;
@@ -185,8 +204,6 @@ module.exports.profileedit_get = (req, res) => {
 
       profileeditmode = true;
   
-      const killdeathratio = tgmbodyres.user.kills !== 0 && tgmbodyres.user.deaths !== 0 ? (tgmbodyres.user.kills / tgmbodyres.user.deaths).toFixed(2) : 'None';
-      const winlossratio = (tgmbodyres.user.wins / tgmbodyres.user.losses).toFixed(2);
   
       // Formatting the initial join date and putting it into template.
       const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -242,7 +259,8 @@ module.exports.profileedit_get = (req, res) => {
                   currentserver: capitalizeFirstLetter(playerresults.server),
                   initjoindate: initjoindate,
                   killdeathratio: killdeathratio,
-                  winlossratio: winlossratio
+                  winlossratio: winlossratio,
+                  tgmstatistics: config.tgmstatistics
                 });
               }
             });
@@ -268,19 +286,23 @@ module.exports.profileedit_post = (req, res) => {
 
   const interests = req.body.interests;
   const twitter = req.body.twitter;
+  const twitch = req.body.twitch;
   const youtube = req.body.youtube;
   const instagram = req.body.instagram;
   const steam = req.body.steam;
   const github = req.body.github;
   const snapchat = req.body.snapchat;
-  const discord = req.body.interests;
+  const discord = req.body.discord;
   // const coverart = req.body.coverart;
   // const aboutpage = req.body.aboutpage;
 
   // coverart=? aboutpage=?
-  let sql = `UPDATE playerprofile interests=?, twitter=?, twitch=?, youtube=?, instagram=?, steam=?, github=?, snapchat=?, discord=? where playerid = (select id from playerdata where username=?);`
-  
-    database.query(sql, [interests, twitter, youtube, instagram, steam, github, snapchat, discord, req.params.username], async function (err, results) {
-      res.redirect("/profile/" + req.params.username);
-    });
+  let sql = `UPDATE playerprofile SET interests=?, twitter=?, twitch=?, youtube=?, instagram=?, steam=?, github=?, snapchat=?, discord=? where playerid = (select id from playerdata where username=?);`
+  database.query(sql, [interests, twitter, twitch, youtube, instagram, steam, github, snapchat, discord, req.params.username], async function (err, results) {
+    if (err) {
+      throw err;
+    } else {
+      res.redirect("/profile/" + req.params.username); 
+    }
+  });  
 };
