@@ -4,15 +4,15 @@ DROP DATABASE IF EXISTS luckperms;
 CREATE DATABASE IF NOT EXISTS luckperms;
 USE luckperms;
 
-CREATE USER 'luckperms'@'%' IDENTIFIED WITH mysql_native_password BY 'Passwordluckperms321';
-FLUSH PRIVILEGES;
-GRANT SELECT ON luckperms.* TO luckperms@'%';
-GRANT INSERT ON luckperms.* TO luckperms@'%';
-GRANT UPDATE ON luckperms.* TO luckperms@'%';
-GRANT DELETE ON luckperms.* TO luckperms@'%';
-GRANT CREATE ON luckperms.* TO luckperms@'%';
-GRANT INDEX ON luckperms.* TO luckperms@'%';
-GRANT ALTER ON luckperms.* TO luckperms@'%';
+-- CREATE USER 'luckperms'@'%' IDENTIFIED WITH mysql_native_password BY 'Passwordluckperms321';
+-- FLUSH PRIVILEGES;
+-- GRANT SELECT ON luckperms.* TO luckperms@'%';
+-- GRANT INSERT ON luckperms.* TO luckperms@'%';
+-- GRANT UPDATE ON luckperms.* TO luckperms@'%';
+-- GRANT DELETE ON luckperms.* TO luckperms@'%';
+-- GRANT CREATE ON luckperms.* TO luckperms@'%';
+-- GRANT INDEX ON luckperms.* TO luckperms@'%';
+-- GRANT ALTER ON luckperms.* TO luckperms@'%';
 
 -- LuckPerms MySQL Schema Starts
 
@@ -25,7 +25,7 @@ CREATE TABLE `{prefix}user_permissions` (
   `world`      VARCHAR(36)        NOT NULL,
   `expiry`     INT(11)            NOT NULL,
   `contexts`   VARCHAR(200)       NOT NULL,
-  `title`      VARCHAR(200)       NOT NULL,
+  `title`      VARCHAR(100)       NOT NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET = utf8mb4;
 CREATE INDEX `{prefix}user_permissions_uuid` ON `{prefix}user_permissions` (`uuid`);

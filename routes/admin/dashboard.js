@@ -1,31 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../../config.json');
-const database = require('../../controllers/database.js');
-const broadcast = require('../../functions/broadcast');
 
 router.get('/', (req, res, next) => {
-  if (req.session.user) {
-  res.render('admin/dashboard', {
-    "pagetitle": "Administration Panel"
-  });
+  if (req.session.playerid && req.session.permissions.administrationpanel == 1) {
+    res.render('admin/dashboard', {
+      "pagetitle": "Administration Panel"
+    });
   } else {
     res.render('session/login', {
-      setValue: true,
-      message: 'You cannot access this page unless you are logged in.',
+      erroralert: true,
+      message: 'You do not have permission to access this page.',
       "pagetitle": "Login"
     });
   }
 });
 
 router.post('/', function (req, res) {
-  if (req.session.user) {
+  if (req.session.playerid && req.session.permissions.administrationpanel == 1) {
 
   } else {
     res.render('session/login', {
       setValue: true,
-      message: 'You cannot access this page unless you are logged in.',
-      "pagetitle": "Login"
+      message: 'You do not have permission to access this page.',
+      pagetitle: "Login"
     });
   };
 });

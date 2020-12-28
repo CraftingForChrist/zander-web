@@ -70,14 +70,8 @@
                 <a href="/profile/<%= data.username %>"><img class="staffimg" src="https://crafatar.com/avatars/<%= data.uuid %>?helm" height="120px" draggable="false"></a><br>
                 <p class="staffname" style="margin-top:5px;"><a style="color:black; text-decoration:none;" href="/profile/<%= data.username %>"><%= data.username %></a><br><small style="line-height:0pt;"><%= data.title %></small></p>
           </div>
-        <% } else { %>
-          <% jrdevs = false %>
         <% } %>
       <% }) %>
-
-      <% if (jrdevs == false) { %>
-        <%- include("./partials/micros/lookingtoapply.ejs") %>
-      <% } %>
       <br>
   </div>
 

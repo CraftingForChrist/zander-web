@@ -12,16 +12,23 @@
   <% if (profileeditmode == true) { %>
   <form action="/profile/<%= playerresults.username %>/edit" method="POST">    
   <% } %>
-  <div class="jumbotron jumbotron-image-header my-4 home-jumbo-header" style="height:240px; padding:45px;">
+  <div class="jumbotron jumbotron-image-header my-4 home-jumbo-header" style="height:210px; padding:45px;">
     <div class="container text-white">
       <div style="margin:0 auto; width:90%;">
         <div style="float:left; width:15%;">
-          <img src="https://crafatar.com/avatars/<%= playerresults.uuid %>?overlay" height="120px" alt="<%= playerresults.username %>'s Player Head" draggable="false">
+          <img src="https://crafatar.com/avatars/<%= playerresults.uuid %>?overlay" height="120px" alt="<%= playerresults.username %>'s Player Head" draggable="false" style="border-radius:20px;">
         </div>
         <div style="float:left; width:50%;">
-          <h3 class="display-4"><%= playerresults.username %></h3>
+          <h3 class="display-4" style="margin-bottom: -2px;"><%= playerresults.username %></h3>
+          
+          <% if (playerresults.status == 'Online') { %>
+            <p class="lead" style="margin-bottom: -2px;"><i class="fas fa-circle" style="color:green;"></i>  Currently Online on <%= currentserver %></p>
+          <% } else { %>
+            <p class="lead" style="margin-bottom: -10px;"><i class="fas fa-circle" style="color:red; height:40px;"></i>  Last Online on <%= currentserver %></p>
+          <% } %>
+
           <% playerrankresults.forEach(function (data) { %>
-            <tr style="font-size:20pt">
+            <tr style="font-size:20pt;">
               <% if (data.permission.includes('group.administrator')) { %>
                 <th><span class="badge badge-secondary" style="background-color:<%= HexColour.administrator %>">Administrator</span></th>
               <% } %>
@@ -83,12 +90,6 @@
          <% if (bedrockuser == true) { %>
            <p><span class="badge badge-secondary">Bedrock</span></p>
          <% } %>
-
-          <% if (playerresults.status == 'Online') { %>
-            <p class="lead"><i class="fas fa-circle" style="color:green;"></i>  Currently Online on <%= currentserver %></p>
-          <% } else { %>
-            <p class="lead"><i class="fas fa-circle" style="color:red; height:40px;"></i>  Last Online on <%= currentserver %></p>
-          <% } %>
         </div>
       </div>
     </div>
@@ -255,7 +256,8 @@
           <% if (playerprofileresults.interests || profileeditmode == true) { %>
             <h4 class="card-title">Interests</h4>
             <% if (profileeditmode == true) { %>
-              <textarea name="interests" cols="40" rows="5"><%= playerprofileresults.interests %></textarea>
+              <textarea name="interests" cols="40" rows="5" maxlength="100" style="resize: none;"><%= playerprofileresults.interests %></textarea>
+              <small>Character Maximum: 100</small>
             <% } else { %>
               <p><%= playerprofileresults.interests %></p>
             <% } %>
@@ -279,9 +281,11 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-twitter"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="twitter" value="<%= playerprofileresults.twitter %>"></th>
+                    <th>
+                      <input type="text" name="twitter" maxlength="16" value="<%= playerprofileresults.twitter %>">
+                    </th>
                   <% } else { %>
-                    <th><a href="https://twitter.com/<%= playerprofileresults.twitter %>"><%= playerprofileresults.twitter %></a></th>
+                    <th><a href="https://twitter.com/<%= playerprofileresults.twitter %>" target="_blank"><%= playerprofileresults.twitter %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -290,9 +294,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-twitch"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="twitch" value="<%= playerprofileresults.twitch %>"></th>
+                    <th><input type="text" name="twitch" maxlength="26" value="<%= playerprofileresults.twitch %>"></th>
                   <% } else { %>
-                    <th><a href="http://twitch.tv/<%= playerprofileresults.twitch %>"><%= playerprofileresults.twitch %></a></th>
+                    <th><a href="http://twitch.tv/<%= playerprofileresults.twitch %>" target="_blank"><%= playerprofileresults.twitch %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -303,7 +307,7 @@
                   <% if (profileeditmode == true) { %>
                     <th><input type="text" name="youtube" value="<%= playerprofileresults.youtube %>"></th>
                   <% } else { %>
-                    <th><a href="https://www.youtube.com/channel/<%= playerprofileresults.youtube %>"><%= playerprofileresults.youtube %></a></th>
+                    <th><a href="https://www.youtube.com/channel/<%= playerprofileresults.youtube %>" target="_blank"><%= playerprofileresults.youtube %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -312,9 +316,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-instagram"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="instagram" value="<%= playerprofileresults.instagram %>"></th>
+                    <th><input type="text" name="instagram" maxlength="32" value="<%= playerprofileresults.instagram %>"></th>
                   <% } else { %>
-                    <th><a href="https://www.instagram.com/<%= playerprofileresults.instagram %>"><%= playerprofileresults.instagram %></a></th>
+                    <th><a href="https://www.instagram.com/<%= playerprofileresults.instagram %>" target="_blank"><%= playerprofileresults.instagram %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -323,9 +327,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-steam-symbol"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="steam" value="<%= playerprofileresults.steam %>"></th>
+                    <th><input type="text" name="steam" maxlength="32" value="<%= playerprofileresults.steam %>"></th>
                   <% } else { %>
-                    <th><a href="https://steamcommunity.com/id/<%= playerprofileresults.steam %>"><%= playerprofileresults.steam %></a></th>
+                    <th><a href="https://steamcommunity.com/id/<%= playerprofileresults.steam %>" target="_blank"><%= playerprofileresults.steam %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -334,9 +338,9 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-github"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="github" value="<%= playerprofileresults.github %>"></th>
+                    <th><input type="text" name="github" maxlength="40" value="<%= playerprofileresults.github %>"></th>
                   <% } else { %>
-                    <th><a href="https://github.com/<%= playerprofileresults.github %>"><%= playerprofileresults.github %></a></th>
+                    <th><a href="https://github.com/<%= playerprofileresults.github %>" target="_blank"><%= playerprofileresults.github %></a></th>
                   <% } %>
                 </tr>
               <% } %>
@@ -345,7 +349,7 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-snapchat-ghost"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="snapchat" value="<%= playerprofileresults.snapchat %>"></th>
+                    <th><input type="text" name="snapchat" maxlength="30" value="<%= playerprofileresults.snapchat %>"></th>
                   <% } else { %>
                     <th><%= playerprofileresults.snapchat%></th>
                   <% } %>
@@ -356,7 +360,7 @@
                 <tr>
                   <th class="socialmediaicon-profile"><h3><i class="fab fa-discord"></i></h3></th>
                   <% if (profileeditmode == true) { %>
-                    <th><input type="text" name="discord" value="<%= playerprofileresults.discord %>"></th>
+                    <th><input type="text" name="discord" maxlength="18" value="<%= playerprofileresults.discord %>"></th>
                   <% } else { %>
                     <th><%= playerprofileresults.discord %></th>
                   <% } %>

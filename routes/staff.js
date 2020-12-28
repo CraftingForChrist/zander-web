@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../config.json');
 const lpdatabase = require('../controllers/lpdatabase.js');
 const database = require('../controllers/database.js');
 

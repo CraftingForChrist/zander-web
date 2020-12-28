@@ -203,3 +203,20 @@ CREATE TABLE votes (
 --   updatedate DATETIME,
 --   FOREIGN KEY (playerid) REFERENCES playerdata (id)
 -- );
+
+-- CREATE TABLE slides (
+--   id int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+--   slideenable BOOLEAN DEFAULT 1,
+
+--   titleenable BOOLEAN DEFAULT 1,
+--   title VARCHAR(100),
+  
+--   imageref VARCHAR(50),
+  
+--   descriptionenable BOOLEAN DEFAULT 1,
+--   description VARCHAR(200),
+  
+--   buttonlinkrefenable BOOLEAN DEFAULT 1,
+--   buttonlinkreftype VARCHAR(50),
+--   buttonlinkref VARCHAR(100)
+-- );
