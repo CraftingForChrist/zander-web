@@ -1,37 +1,34 @@
 const Discord = require("discord.js");
-const config = require("../../config.json")
+const config = require("../../config.json");
+const HexColour = require("../../HexColour.json");
 
-module.exports = async (client, oldMember, newMember) => {
-  // To detect which channel it is you can use the newMember.voiceChannelID
-  // to get the ID of the channel the user joined as newMember is an instance
-  // of GuildMember which you can see all the properties and methods there.
+module.exports = async (oldState, newState) => {
+  let oldStateVoice = oldState.voiceChannelID;
+  let newStateVoice = newState.voiceChannelID;
+  let adminlogchannel = oldState.guild.channels.cache.find(c => c.name === 'admin-log');
 
-  //You could also dectect it by its name with newMember.voiceChannel.name or
-  // newUserChannel.name as I already set a variable for newMember.voiceChannel in the code.
+  if (oldStateVoice != newStateVoice) {
+    // User has joined the voice channel.
+    let embed = new Discord.MessageEmbed()
+      .setTitle('Channel Joined')
+      .setDescription(`${oldState.member.user.username} has switched from ${oldState.channel.name}`)
+      .setColor(HexColour.green)
+    adminlogchannel.send(embed);
 
-  // const newUserChannel = newMember.voiceChannel;
-  // const oldUserChannel = oldMember.voiceChannel;
-  // const channelStatus = "";
+  } else if (oldStateVoice === undefined && newStateVoice !== undefined) {
+    // User has left the voice channel.
+    let embed = new Discord.MessageEmbed()
+      .setTitle('Channel Left')
+      .setDescription(`${oldState.member.user.username} has left from ${oldState.channel.name}`)
+      .setColor(HexColour.red)
+    adminlogchannel.send(embed);
 
-  client.channels.fetch('751593283993469048').then(channel => console.log(channel.name));
-
-  let channel = client.guild.channels.cache.get(channelid);
-  console.log(channel);
-
-
-  // if (oldUserChannel === null) {
-  //   // Triggered whenever a user joins a voice channel.
-	// 	channelStatus = "joined voice channel";
-  //
-  //   console.log(`${newMember.user.username} ${channelStatus}`);
-  //
-	// } else if (newUserChannel === null) {
-  //   // Triggered whenever a user leaves a voice channel.
-	// 	channelStatus = "Left Voice Channel";
-  //
-	// } else if (oldUserChannel !== null && newUserChannel !== null) {
-  //   // Triggered whenever a user moves voice channel.
-	// 	channelStatus = "moved voice channel";
-  //
-	// };
+  } else {
+    // User has switched voice channels.
+    let embed = new Discord.MessageEmbed()
+      .setTitle('Channel Switched')
+      .setDescription(`${oldState.member.user.username} has switched from ${oldState.channel.name}`)
+      .setColor(HexColour.yellow)
+    adminlogchannel.send(embed);
+  }
 }
