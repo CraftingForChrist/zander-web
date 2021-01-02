@@ -1,0 +1,24 @@
+<div id="indexSlideCaptions" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <% indexslides.forEach(function (data) { %>
+      <div class="carousel-item <% if (data.position == 1) { %> active <% } %>">
+        <img src="<%= data.bannerimage %>" class="d-block w-100" alt="<%= data.bannerimagealttext %>">
+        <div class="carousel-caption banner-caption">
+          <h1><%= data.title %></h1>
+          <p style="font-size: 15pt;"><%= data.description %></p>
+          <a href="<%= data.linkreference %>"><button type="button" class="btn <%= data.buttonstyle %>" style="font-size:16pt;"><%= data.buttontext %></button></a>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+
+  <!-- Slide Controls -->
+  <a class="carousel-control-prev" href="#indexSlideCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#indexSlideCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
